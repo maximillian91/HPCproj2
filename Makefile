@@ -1,6 +1,6 @@
 TARGET = program
-LIBSRCS	= main.c matrix.c
-OBJS	= matrix.o main.o
+LIBSRCS	= main.c matrix.c jacobi.c
+OBJS	= matrix.o main.o jacobi.o
 XOPTS = -xlic_lib=sunperf
 
 OPT = -g -fast
@@ -12,10 +12,10 @@ CFLAGS = $(OPT) $(PIC) $(XOPTS)
 SOFLAGS = -shared
 
 $(TARGET): $(OBJS) 
-	$(CC) $(CFLAGS) -o $@ $(OBJ)
-
-
-main.o: main.c matrix.h
-matrix.o: matrix.c matrix.h
+	$(CC) $(CFLAGS) -o $@ $(SOFLAGS) $(OBJS)
 
 clean:	@/bin/rm -f core core.* $(OBJS) 
+
+main.o: main.c matrix.h jacobi.h
+matrix.o: matrix.c matrix.h
+jacobi.o: jacobi.c matrix.h jacobi.h
