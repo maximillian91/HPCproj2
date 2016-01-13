@@ -4,10 +4,11 @@
 #include "matrix.h"
 #include "jacobi.h"
 
-int main(){
+int main(int argc, char* argv[]){
 	
-	printf("Final result:\n");
-	int N = 7;
+	//printf("Final result:\n");
+	int N = atoi(argv[1]);
+	//printf("%d\n",N);
 	double ** f = dmalloc_2d(N+2,N+2);
 	double ** u1 = dmalloc_2d(N+2,N+2);
 	double ** u2 = dmalloc_2d(N+2,N+2);
