@@ -104,6 +104,7 @@ double ** dmalloc_2d(int m, int n) {
 		return A; 
 	}
 
+
 int main(){
 	int N = 7;
 	double ** f = dmalloc_2d(N+2,N+2);
