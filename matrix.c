@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <math.h>
 #include "matrix.h"
-#include "jacobi.h"
 
 void initialize(double **u1,double **u2,double **f,int N){
 	int i,j;

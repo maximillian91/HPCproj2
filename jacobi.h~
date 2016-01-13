@@ -1,7 +1,8 @@
 #ifndef __JACOBI_H
 #define __JACOBI_H
+#include "matrix.h"
+#include "update.h"
 
-double ** jacobi(double **u1, double **u2, double **f, int N, int maxit,double tol);
-double update(double **uN,double **uO,double **f,int N,double deltaSq);
+double ** jacobi(double **, double **, double **, int, int,double);
 
 #endif
