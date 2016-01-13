@@ -46,3 +46,16 @@ double ** dmalloc_2d(int m, int n) {
          	A[i] = A[0] + i * n;
 		return A; 
 	}
+
+void print(double ** A,int N){
+	int maxit = 10;
+	int i,j;
+	for(i = 0;i < N;i++){
+		for(j = 0;j < N;j++){
+			printf("%.2f\t",A[i][j]);
+		}
+		printf("\n");
+	}
+	printf("\n");
+}
+

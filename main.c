@@ -11,14 +11,14 @@ int main(){
 	double ** f = dmalloc_2d(N+2,N+2);
 	double ** u1 = dmalloc_2d(N+2,N+2);
 	double ** u2 = dmalloc_2d(N+2,N+2);
-		
+	double tol = 0.4;
+	int maxIter = 200;
+
 	initialize(u1,u2,f,N+2);	
 
 	//print(f,N+2);
 	//print(u1,N+2);
-
-	double tol = 0.4;
-	u1 = jacobi(u1,u2,f,N+2,200,tol);
+	u1 = jacobi(u1,u2,f,N+2,maxIter,tol);
 	
 	printf("Final result:\n");
 	//print(u1,N+2);
