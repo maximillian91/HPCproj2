@@ -17,4 +17,3 @@ double ** jacobi(double **u1, double **u2, double **f, int N, int maxit,double t
 	printf("%f\n",tol);
 	return u2;
 }
-

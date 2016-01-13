@@ -17,3 +17,4 @@ clean:	rm -f core core.* $(OBJS)
 main.o: main.c matrix.h jacobi.h
 matrix.o: matrix.c matrix.h
 jacobi.o: jacobi.c matrix.h jacobi.h
+
