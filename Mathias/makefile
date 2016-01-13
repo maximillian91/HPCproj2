@@ -1,7 +1,7 @@
 OBJS = main.o matrix.o jaco.o gseid.o update.o
 
-Haha: $(OBJS)
-	suncc -g -fast $(OBJS) -o Haha -lm
+Pois: $(OBJS)
+	suncc -g -fast $(OBJS) -o Pois -lm
 
 clean: 
 	rm -f *.o core
