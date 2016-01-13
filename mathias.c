@@ -47,26 +47,27 @@ double update(double **uN,double **uO,double **f,int N,double deltasq){
 	double a;
 	for(i = 1;i < (N-1);i++){
 		for(j = 1;j < (N-1);j++){
+				a = uO[i][j];
 				uN[i][j] = 0.25*(uO[i][j-1]+uO[i][j+1]+uO[i-1][j]+uO[i+1][j]+deltasq*f[i][j]);
-				a = (uN[i][j] - uO[i][j]);
+				a -= uN[i][j];
 				sum += a*a;
 		}
 	}
 	return sqrt(sum);
 }
 
-double ** jacobi(double **u1, double **u2, double **f, int N, int maxit){
+double ** jacobi(double **u1, double **u2, double **f, int N, int maxit,double tol){
 	int it = 0;
 	double frob;
 	double deltasq = 4.0/(N*N);
 	while(it < maxit){
-		frob = update(u1,u2,f,N);
+		frob = update(u1,u2,f,N,deltasq);
 		printf("Iteration %d\n",it+1);
 		printf("Frob = %f\n",frob);
 		print(u1,N);
 		it++;
 
-		if(frob <= 0.4){
+		if(frob <= tol){
 			printf("Converged! Over %d iterations!\n",it);
 			return u1;
 		}
@@ -75,18 +76,40 @@ double ** jacobi(double **u1, double **u2, double **f, int N, int maxit){
 			return u1;
 		}
 		
-		frob = update(u2,u1,f,N);
+		frob = update(u2,u1,f,N,deltasq);
 		printf("Iteration %d\n",it+1);
 		printf("Frob = %f\n",frob);
 		print(u2,N);
 		it++;
-		if(frob <= 0.4){
+		if(frob <= tol){
 			printf("Converged! Over %d iterations!\n",it);
 			return u2;
 		}
 	}
 	printf("Didn't converge!");
 	return u2;
+}
+
+double ** gseidel(double **u,double **f,int N,int maxit,double tol){
+	int it = 0;
+	double frob;
+	double deltasq = 4.0/(N*N);
+	while(it < maxit){
+		frob = update(u,u,f,N,deltasq);
+		printf("Iteration %d\n",it+1);
+		printf("Frob = %f\n",frob);
+		print(u,N);
+		it++;
+
+		if(frob <= tol){
+			printf("Converged! Over %d iterations!\n",it);
+			return u;
+		}
+		if(it == maxit){
+			printf("Didn't converge!");
+			return u;
+		}
+	}
 }
 
 // allocate a double-prec m x n matrix
@@ -105,7 +128,6 @@ double ** dmalloc_2d(int m, int n) {
 		return A; 
 	}
 
-
 int main(){
 	int N = 7;
 	double ** f = dmalloc_2d(N+2,N+2);
@@ -117,8 +139,9 @@ int main(){
 	print(f,N+2);
 	print(u1,N+2);
 
-	u1 = jacobi(u1,u2,f,N+2,200);
-	
+	//u1 = jacobi(u1,u2,f,N+2,200,0.0005);
+	u1 = gseidel(u1,f,N+2,200,0.0005);
+
 	printf("Final result:\n");
 	print(u1,N+2);
 
