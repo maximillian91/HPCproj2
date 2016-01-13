@@ -41,14 +41,13 @@ void initialize(double **u1,double **u2,double **f,int N){
 	}
 }
 
-double update(double **uN,double **uO,double **f,int N){
+double update(double **uN,double **uO,double **f,int N,double deltasq){
 	int i,j;
-	double delta = 2.0/(N-1);
 	double sum = 0;
 	double a;
 	for(i = 1;i < (N-1);i++){
 		for(j = 1;j < (N-1);j++){
-				uN[i][j] = 0.25*(uO[i][j-1]+uO[i][j+1]+uO[i-1][j]+uO[i+1][j]+delta*f[i][j]);
+				uN[i][j] = 0.25*(uO[i][j-1]+uO[i][j+1]+uO[i-1][j]+uO[i+1][j]+deltasq*f[i][j]);
 				a = (uN[i][j] - uO[i][j]);
 				sum += a*a;
 		}
@@ -59,6 +58,7 @@ double update(double **uN,double **uO,double **f,int N){
 double ** jacobi(double **u1, double **u2, double **f, int N, int maxit){
 	int it = 0;
 	double frob;
+	double deltasq = 4.0/(N*N);
 	while(it < maxit){
 		frob = update(u1,u2,f,N);
 		printf("Iteration %d\n",it+1);
@@ -85,6 +85,7 @@ double ** jacobi(double **u1, double **u2, double **f, int N, int maxit){
 			return u2;
 		}
 	}
+	printf("Didn't converge!");
 	return u2;
 }
 
