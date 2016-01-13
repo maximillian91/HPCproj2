@@ -27,10 +27,10 @@ int main(int argc,char* argv[]){
 	
 	if(argc>2){
 		if(strcmp(argv[2],"jacobi")==0){
-			u1 = jacobi(u1,u2,f,N+2,200,0.1);
+			u1 = jacobi(u1,u2,f,N+2,200,0.01);
 		}
 		else if(strcmp(argv[2],"gseidel")==0){
-			u1 = gseidel(u1,f,N+2,1000,0.1);
+			u1 = gseidel(u1,f,N+2,1000,0.01);
 		}
 	}
 
